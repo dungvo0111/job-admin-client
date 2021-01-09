@@ -3,38 +3,15 @@ import createSagaMiddleware from 'redux-saga'
 
 import createRootReducer from './reducers'
 import rootSaga from './sagas'
-import { AppState } from 'types'
+import { AppState } from 'redux/types'
 
 const initState: AppState = {
-  dataTable: {},
-  ui: {},
   login: {
-    id: '',
     email: '',
-    avatar: '',
     firstName: '',
     lastName: '',
+    userId: '',
     accessToken: '',
-    roles: [],
-    permissions: [],
-  },
-  resources: {},
-  submission: {
-    submissions: [],
-    submission: {
-      testId: '',
-      studentName: '',
-      templateName: '',
-      submittedDate: '',
-      studentScore: 0,
-      totalScore: 0,
-      reviewRequired: false,
-      submissions: [],
-    },
-  },
-  selectionProcess: {
-    rounds: [],
-    studentProcess: null,
   },
   notification: [],
 }

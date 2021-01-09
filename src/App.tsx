@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import { Switch, Route } from 'react-router'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
-function App() {
+import './App.scss'
+
+import AuthApp from 'components/AuthApp'
+import LoginView from 'pages/login/view'
+import { fetchUserLoginState } from 'pages/login/redux/actions'
+
+const App = () => {
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  useEffect(() => {
+    dispatch(fetchUserLoginState(history))
+  }, [dispatch, history])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Switch>
+      <Route exact path="/login">
+        <LoginView />
+      </Route>
+      <Route path="/">
+        <AuthApp />
+      </Route>
+    </Switch>
+  )
 }
 
-export default App;
+export default App

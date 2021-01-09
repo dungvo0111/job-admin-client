@@ -10,6 +10,11 @@ export type LoginResponse = {
     token: string
 }
 
+export type LoginPayload = {
+    email: string
+    password: string
+}
+
 export type LoginState = {
     email: string,
     userId: string,
@@ -21,38 +26,46 @@ export type LoginState = {
 export type LoginRequest = {
     type: typeof LOGIN_REQUEST
     payload: {
-      email: string
-      password: string
-      history: History
+        email: string
+        password: string
+        history: History
     }
-  }
-  
-  export type LoginSuccess = {
+}
+
+export type LoginSuccess = {
     type: typeof LOGIN_SUCCESS
     payload: {
-      accessToken: string
-      message: string
+        accessToken: string
+        message: string
     }
-  }
-  
-  export type FetchUserLoginState = {
+}
+
+export type FetchUserLoginState = {
     type: typeof FETCH_USER_LOGIN_STATE
     payload: {
-      history: History
+        history: History
     }
-  }
-  
-  export type Logout = {
+}
+
+export type Logout = {
     type: typeof LOGOUT
     payload: {
-      history: History
-      tokenExpired?: boolean
+        history: History
+        tokenExpired?: boolean
     }
-  }
-  
-  export type LoginActions =
+}
+
+export type LoginActions =
     | LoginRequest
     | LoginSuccess
     | FetchUserLoginState
     | Logout
-  
+
+export type LoginElemName =
+    | "email"
+    | "password"
+
+export type LoginFormElem = Array<{
+    label: string;
+    name: LoginElemName
+}>;

@@ -15,7 +15,7 @@ import LoginServices from '../services'
 import LocalStorage from 'browserStorage/LocalStorage'
 import { showNotification } from 'components/redux/actions'
 
-export function* loginWithGoogle() {
+export function* loginRequest() {
   yield takeEvery(
     LOGIN_REQUEST,
     function* ({ payload: { email, password, history } }: LoginRequest) {
@@ -25,6 +25,7 @@ export function* loginWithGoogle() {
         if (res) {
           const decoded = jwtDecode(res.token) as Omit<LoginState, 'accessToken'>
           const payload = { ...decoded, accessToken: res.token }
+
           yield put({
             type: LOGIN_SUCCESS,
             payload: payload,
@@ -33,10 +34,18 @@ export function* loginWithGoogle() {
           axios.defaults.headers.common[
             'Authorization'
           ] = `Bearer ${payload.accessToken}`
+
+          yield put(showNotification(res.message, {
+            variant: 'success',
+          }))
+
           history.push('/')
+
         }
       } catch (error) {
-        yield put(showNotification('Google login failed'))
+        yield put(showNotification(error.response.data.message, {
+          variant: 'error',
+        }))
       }
     }
   )
@@ -59,9 +68,10 @@ export function* fetchUserLoginState() {
         })
       } catch (error) {
         yield put(
-          showNotification('Access token not found', {
-            variant: 'error',
-          })
+          showNotification('Access token not found',
+            {
+              variant: 'error',
+            })
         )
         yield history.push('/login')
       }
