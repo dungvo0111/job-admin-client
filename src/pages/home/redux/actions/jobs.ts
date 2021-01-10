@@ -1,4 +1,4 @@
-import { CreateJobPayload, CREATE_JOB, GET_ALL_JOBS, JobFormPayload, JobsActions } from "../types";
+import { CreateJobPayload, CREATE_JOB, GET_ALL_JOBS, GET_JOB, JobsActions, } from "../types";
 
 
 export function getAllJobs(): JobsActions {
@@ -13,4 +13,13 @@ export function createJob(payload: CreateJobPayload): JobsActions {
     payload
   }
 }
+
+export function getJob(jobId: string): JobsActions {
+  return {
+    type: GET_JOB,
+    jobId
+  }
+}
+
+
 

@@ -5,8 +5,12 @@ import {
   CreateJobPayload,
   CREATE_JOB,
   CREATE_JOB_SUCCESS,
+  GetJobAction,
+  GetJobSuccessAction,
   GET_ALL_JOBS,
   GET_ALL_JOBS_SUCCESS,
+  GET_JOB,
+  GET_JOB_SUCCESS,
   JobFormPayload,
   Jobs
 } from '../types'
@@ -42,6 +46,26 @@ export function* createJob() {
         yield put({
           type: CREATE_JOB_SUCCESS,
           payload: res.job,
+        })
+      }
+    } catch (error) {
+      yield put(showNotification(error.response.data.message, {
+        variant: 'error',
+      }))
+    }
+  }
+  )
+}
+
+export function* getJob() {
+  yield takeEvery(GET_JOB, function* (payload: GetJobAction) {
+    try {
+      const res: Jobs = yield call(Services.getJob, payload.jobId)
+
+      if (res) {
+        yield put({
+          type: GET_JOB_SUCCESS,
+          payload: res,
         })
       }
     } catch (error) {

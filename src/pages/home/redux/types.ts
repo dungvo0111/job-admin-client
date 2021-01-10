@@ -6,6 +6,18 @@ export const GET_ALL_CUSTOMERS = 'GET_ALL_CUSTOMERS'
 export const GET_ALL_CUSTOMERS_SUCCESS = 'GET_ALL_CUSTOMERS_SUCCESS'
 export const CREATE_JOB = 'CREATE_JOB'
 export const CREATE_JOB_SUCCESS = 'CREATE_JOB_SUCCESS'
+export const GET_JOB = 'GET_JOB'
+export const GET_JOB_SUCCESS = 'GET_JOB_SUCCESS'
+export const CREATE_MESSAGE = 'CREATE_MESSAGE'
+export const CREATE_MESSAGE_SUCCESS = 'CREATE_MESSAGE_SUCCESS'
+export const GET_ALL_MESSAGES = 'GET_ALL_MESSAGES'
+export const GET_ALL_MESSAGES_SUCCESS = 'GET_ALL_MESSAGES_SUCCESS'
+export const GET_ALL_TASKS = 'GET_ALL_TASKS'
+export const GET_ALL_TASKS_SUCCESS = 'GET_ALL_TASKS_SUCCESS'
+export const CREATE_TASK = 'CREATE_TASK'
+export const CREATE_TASK_SUCCESS = 'CREATE_TASK_SUCCESS'
+export const UPDATE_TASK = 'UPDATE_TASK'
+export const UPDATE_TASK_SUCCESS = 'UPDATE_TASK_SUCCESS'
 
 export type GetAllJobsAction = {
     type: typeof GET_ALL_JOBS
@@ -14,6 +26,16 @@ export type GetAllJobsAction = {
 export type GetAllJobsSuccessAction = {
     type: typeof GET_ALL_JOBS_SUCCESS
     payload: Jobs[]
+}
+
+export type GetJobAction = {
+    type: typeof GET_JOB
+    jobId: string
+}
+
+export type GetJobSuccessAction = {
+    type: typeof GET_JOB_SUCCESS
+    payload: Jobs
 }
 
 export type GetAllUsersAction = {
@@ -44,11 +66,63 @@ export type CreateJobSuccessAction = {
     payload: Jobs
 }
 
+export type CreateMessageAction = {
+    type: typeof CREATE_MESSAGE
+    payload: CreateMessagePayload
+}
+
+export type CreateMessageSuccessAction = {
+    type: typeof CREATE_MESSAGE_SUCCESS
+    payload: Message
+}
+
+export type GetAllMessagesAction = {
+    type: typeof GET_ALL_MESSAGES
+    jobId: string
+}
+
+export type GetAllMessagesSuccessAction = {
+    type: typeof GET_ALL_MESSAGES_SUCCESS
+    payload: Message[]
+}
+
+export type GetAllTasksAction = {
+    type: typeof GET_ALL_TASKS
+    jobId: string
+}
+
+export type GetAllTasksSuccessAction = {
+    type: typeof GET_ALL_TASKS_SUCCESS
+    payload: Task[]
+}
+
+export type CreateTaskAction = {
+    type: typeof CREATE_TASK
+    payload: CreateTaskPayload
+}
+
+export type CreateTaskSuccessAction = {
+    type: typeof CREATE_TASK_SUCCESS
+    payload: Task
+}
+
+export type UpdateTaskAction = {
+    type: typeof UPDATE_TASK
+    payload: UpdateTaskPayload
+}
+
+export type UpdateTaskSuccessAction = {
+    type: typeof UPDATE_TASK_SUCCESS
+    payload: Task
+}
+
 export type JobsActions =
     | GetAllJobsAction
     | GetAllJobsSuccessAction
     | CreateJobAction
     | CreateJobSuccessAction
+    | GetJobAction
+    | GetJobSuccessAction
 
 export type UsersActions =
     | GetAllUsersAction
@@ -57,6 +131,20 @@ export type UsersActions =
 export type CustomersActions =
     | GetAllCustomersAction
     | GetAllCustomersSuccessAction
+
+export type MessagesActions =
+    | CreateMessageAction
+    | CreateMessageSuccessAction
+    | GetAllMessagesAction
+    | GetAllMessagesSuccessAction
+
+export type TasksActions =
+    | GetAllTasksAction
+    | GetAllTasksSuccessAction
+    | CreateTaskAction
+    | CreateTaskSuccessAction
+    | UpdateTaskAction
+    | UpdateTaskSuccessAction
 
 export type Status = 'Pending' | 'Ongoing' | 'Closed'
 
@@ -87,6 +175,33 @@ export interface Customer {
     location: string
 }
 
+export interface Message {
+    _id: string
+    text: string
+    jobId: string
+    taskId?: string
+}
+
+export interface Task {
+    _id: string
+    dueDate: Date
+    jobId: string
+    messages: Message[]
+}
+
+export interface CreateTaskPayload {
+    jobId: string
+    dueDate: Date
+    messages: Message[]
+}
+
+export interface UpdateTaskPayload {
+    taskId: string
+    jobId: string
+    dueDate?: Date
+    messages?: Message[]
+}
+
 export type JobFormPayload = {
     name: string,
     userName: string,
@@ -109,6 +224,11 @@ export type CreateJobPayload = {
     endDate: Date,
     status: Status,
     info: string
+}
+
+export type CreateMessagePayload = {
+    text: string,
+    jobId: string
 }
 
 export type JobFormElemName =

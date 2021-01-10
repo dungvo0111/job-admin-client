@@ -4,9 +4,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Tab, Tabs } from '@material-ui/core'
 
 import TabPanel, { a11yProps } from '../components/TabPanel'
-import JobView from './JobView'
-import UserView from './UserView'
-import CustomerView from './CustomerView'
+import JobTab from './JobTab'
+import UserTab from './UserTab'
+import CustomerTab from './CustomerTab'
 import { useDispatch } from 'react-redux'
 import { getAllUsers } from '../redux/actions'
 import { getAllCustomers } from '../redux/actions'
@@ -65,21 +65,21 @@ const HomeView = () => {
                 index={0}
                 maxHeight="none"
             >
-                <JobView />
+                <JobTab />
             </TabPanel>
             <TabPanel
                 value={value}
                 index={1}
                 maxHeight="none"
             >
-                <UserView />
+                <UserTab />
             </TabPanel>
             <TabPanel
                 value={value}
                 index={2}
                 maxHeight="none"
             >
-                <CustomerView />
+                <CustomerTab />
             </TabPanel>
         </>
     )

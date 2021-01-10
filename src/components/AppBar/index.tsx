@@ -1,14 +1,15 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { AppBar as MuiAppBar, ListItemIcon, ListItemText, Menu, MenuItem, Theme } from '@material-ui/core'
+import { AppBar as MuiAppBar, ListItemIcon, ListItemText, Menu, MenuItem, Theme, Typography } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock'
 import IconButton from '@material-ui/core/IconButton'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { logout } from 'pages/login/redux/actions'
 import { colors } from 'constants/styles'
+import { AppState } from 'redux/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   appBar: {
@@ -21,8 +22,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     boxShadow: 'none',
     height: theme.spacing(7)
   },
+  text: {
+    fontSize: theme.spacing(2),
+    color: 'black'
+  },
+  wrapper: {
+    alignSelf: 'flex-end',
+    display: 'flex',
+    alignItems: 'center'
+  },
   accountIcon: {
-    alignSelf: 'flex-end'
+    margin: theme.spacing(0, 2)
   },
   menuIcon: {
     minWidth: theme.spacing(6.5),
@@ -36,6 +46,7 @@ export default function AppBar() {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
+  const name = useSelector((state: AppState) => state.login.firstName)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
   const handleLogoutbuttonClick = () => {
@@ -57,14 +68,17 @@ export default function AppBar() {
       <MuiAppBar
         className={classes.appBar}
       >
-        <IconButton
-          aria-controls="customized-menu"
-          aria-haspopup="true"
-          onClick={handleClick}
-          className={classes.accountIcon}
-        >
-          <AccountCircleIcon />
-        </IconButton>
+        <div className={classes.wrapper}>
+          <Typography className={classes.text}>Hello {name}</Typography>
+          <IconButton
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+            className={classes.accountIcon}
+          >
+            <AccountCircleIcon />
+          </IconButton>
+        </div>
         <Menu
           getContentAnchorEl={null}
           anchorOrigin={{

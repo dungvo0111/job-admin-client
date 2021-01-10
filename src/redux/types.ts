@@ -5,7 +5,7 @@ import { LoginState } from 'pages/login/redux/types'
 import { NotificationState } from 'components/redux/types'
 
 //Jobs
-import { Customer, Jobs, User } from 'pages/home/redux/types'
+import { Customer, Jobs, Message, Task, User } from 'pages/home/redux/types'
 
 
 // App
@@ -15,6 +15,8 @@ export type AppState = {
   jobs: Jobs[]
   users: User[]
   customers: Customer[]
+  messages: Message[]
+  tasks: Task[]
 }
 
 //Partial type for nested object

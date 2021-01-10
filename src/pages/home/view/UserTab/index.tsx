@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 import { AppState } from 'redux/types'
+import { getAllUsers } from 'pages/home/redux/actions'
 import { Typography } from '@material-ui/core'
-import { getAllCustomers } from 'pages/home/redux/actions/customers'
-
 
 const useStyles = makeStyles((theme: Theme) => ({
     wrapper: {
@@ -27,7 +26,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     },
     row: {
-        display: 'flex'
+        display: 'flex',
+        marginBottom: theme.spacing(2)
     },
     cell: {
         '&:not(:last-child)': {
@@ -38,18 +38,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }))
 
-const titles = ['First name', 'Last name', 'Email', 'Location']
+const titles = ['First name', 'Last name', 'Email']
 
-const CustomerView = () => {
+const UserView = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
-    const customersData = useSelector((state: AppState) => state.customers)
+    const usersData = useSelector((state: AppState) => state.users)
     useEffect(() => {
-        dispatch(getAllCustomers())
+        dispatch(getAllUsers())
     }, [dispatch])
 
-
-    if (!customersData) return <></>
+    if (!usersData) return <></>
 
     return (
         <div className={classes.wrapper}>
@@ -63,19 +62,20 @@ const CustomerView = () => {
                 ))}
             </div>
             <div className={classes.contentContainer}>
-                {customersData && customersData.map(customer => (
-                    <div key={customer.email} className={classes.row}>
-                        {Object.values(customer).map((elem, index) => (
+                {usersData && usersData.map(user => {
+                    const {_id, firstName, lastName, email} = user
+                    return (<div key={_id} className={classes.row}>
+                        {[firstName, lastName, email].map((elem, index) => (
                             <Typography key={index} className={classes.cell}>
                                 {elem}
                             </Typography>
                         ))}
                     </div>
 
-                ))}
+                )})}
             </div>
         </div>
     )
 }
 
-export default CustomerView
+export default UserView

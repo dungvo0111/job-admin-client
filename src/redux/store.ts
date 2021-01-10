@@ -17,6 +17,8 @@ const initState: AppState = {
   users: [],
   customers: [],
   notification: [],
+  messages: [],
+  tasks: []
 }
 
 export default function makeStore(initialState = initState) {

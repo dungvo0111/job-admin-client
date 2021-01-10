@@ -17,11 +17,12 @@ const useStyles = makeStyles(theme => ({
     background: colors.customPalette.gray.light,
   },
   content: {
-    marginTop: theme.spacing(20),
+    marginTop: theme.spacing(10),
+   
   },
   paper: {
     padding: theme.spacing(3),
-    margin: theme.spacing(0, 10)
+    margin: theme.spacing(0, 10),
   }
 }))
 
