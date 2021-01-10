@@ -1,9 +1,6 @@
 export const fontFamily = "'Poppins', sans-serif"
 
 export const colors = {
-  cropContainerBg: '#333',
-  lineChartBg: '#FFF9EB',
-  tableRowBg: '#FAFBFC',
   customPalette: {
     yellow: {
       light: '#FFF5DF',
