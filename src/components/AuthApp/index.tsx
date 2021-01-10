@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(3),
+    margin: theme.spacing(0, 10)
   }
 }))
 
@@ -44,11 +45,11 @@ const AuthApp = () => {
   return (
     <main className={classes.container}>
       <AppBar />
-      <Container className={classes.content}>
+      <div className={classes.content}>
         <Paper className={classes.paper}>
           <Routes />
         </Paper>
-      </Container>
+      </div>
     </main>
   )
 }

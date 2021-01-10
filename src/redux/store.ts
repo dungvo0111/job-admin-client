@@ -13,6 +13,9 @@ const initState: AppState = {
     userId: '',
     accessToken: '',
   },
+  jobs: [],
+  users: [],
+  customers: [],
   notification: [],
 }
 
@@ -38,7 +41,7 @@ export default function makeStore(initialState = initState) {
   sagaMiddleware.run(rootSaga)
 
   if ((module as any).hot) {
-    ;(module as any).hot.accept('./reducers', () => {
+    ; (module as any).hot.accept('./reducers', () => {
       const nextReducer = require('./reducers').default
       store.replaceReducer(nextReducer)
     })

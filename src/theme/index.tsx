@@ -1,7 +1,15 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import { cardBoxShadow, fontFamily } from 'constants/styles'
+import { cardBoxShadow, colors, fontFamily } from 'constants/styles'
 
 let theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: colors.customPalette.darkGray.dark,
+        },
+        secondary: {
+            main: colors.customPalette.yellow.main,
+        },
+    },
     typography: {
         fontFamily: fontFamily,
     },
@@ -12,6 +20,13 @@ let theme = createMuiTheme({
             },
             elevation1: {
                 boxShadow: cardBoxShadow,
+            },
+        },
+        MuiTab: {
+            root: {
+                '&.Mui-selected': {
+                    color: colors.customPalette.yellow.main,
+                },
             },
         },
     },
